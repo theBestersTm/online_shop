@@ -38,8 +38,10 @@ public class StatusServiceImpl implements StatusService {
     @PostConstruct
     public void init() {
         for (Status.Enum value : Status.Enum.values()) {
-            statusRepository.findByName(value.getName())
-                    .orElse(statusRepository.save(new Status(value.getName())));
+            if(!statusRepository.findByName(value.getName()).isPresent()){
+                statusRepository.save(new Status(value.getName()));
+            }
+
         }
     }
 }
