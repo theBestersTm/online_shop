@@ -35,6 +35,7 @@ public class StatusServiceImpl implements StatusService {
         return statusRepository.findByName(status).orElseThrow(() -> new EntityNotFoundException("can't find Status obj with status : " + status));
     }
 
+
     @PostConstruct
     public void init() {
         for (Status.Enum value : Status.Enum.values()) {

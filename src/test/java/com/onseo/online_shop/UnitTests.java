@@ -1,4 +1,4 @@
-package com.onseo.online_shop.test;
+package com.onseo.online_shop;
 
 import com.onseo.online_shop.data.dto.GoodsDto;
 import com.onseo.online_shop.data.entity.Goods;

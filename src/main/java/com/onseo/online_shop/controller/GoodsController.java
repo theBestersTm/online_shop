@@ -27,8 +27,8 @@ public class GoodsController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<GoodsDto>> getAll(@RequestParam(required = false, defaultValue = "ASC") String sort,
                                                  @RequestParam(required = false, defaultValue = "id") String field,
-                                                 @RequestParam(required = false) int page,
-                                                 @RequestParam(required = false) int size) {
+                                                 @RequestParam(required = false, defaultValue = "0" ) int page,
+                                                 @RequestParam(required = false, defaultValue = "10" ) int size) {
         return ResponseEntity.ok(goodsService.findAllByField(page, size, field, sort));
     }
 
@@ -36,6 +36,12 @@ public class GoodsController {
     public ResponseEntity<GoodsDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(goodsService.getById(id));
     }
+
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <List<GoodsDto>> getByStatus(@RequestBody List <String> statusNames) {
+        return ResponseEntity.ok(goodsService.getByStatuses(statusNames));
+    }
+
 
     @PostMapping(value = "/{id}/{status}")
     public ResponseEntity<GoodsChangeStatusDto> changeStatus(@PathVariable Long id, @PathVariable Status.Enum status) {

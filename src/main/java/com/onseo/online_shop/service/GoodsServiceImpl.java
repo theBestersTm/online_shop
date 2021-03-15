@@ -50,6 +50,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<GoodsDto> getByStatuses(List<String> ids) {
+        return goodsRepository.findAllByStatusIn(ids.stream().map(statusService::findByStatus).collect(Collectors.toList())).stream().map(GoodsDto::from).collect(Collectors.toList());
+
+    }
+
+    @Override
     public GoodsChangeStatusDto changeStatus(Long id, Status.Enum status) {
         Goods goods = goodsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("can't find Goods obj with id : " + id));
 
